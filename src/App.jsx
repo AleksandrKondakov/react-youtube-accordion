@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styles from './App.module.scss';
 
 function App() {
-    const [chatSettings, setChatSettings] = useState(false);
+    const [telegramButton, settelegramButton] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseEnter = useCallback(() => setIsHovering(true), []);
@@ -10,11 +10,11 @@ function App() {
 
     useEffect(() => {
         if (!isHovering) {
-            setChatSettings(false);
+            settelegramButton(false);
         }
     }, [isHovering]);
 
-    const handleClickOutside = useCallback(() => setChatSettings(false), []);
+    const handleClickOutside = useCallback(() => settelegramButton(false), []);
     const handleClickInside = useCallback((e) => e.stopPropagation(), []);
 
     const createRipple = (event) => {
@@ -40,11 +40,11 @@ function App() {
             <h1>CSS популярных приложений</h1>
             <h2>Кнопка Telegram</h2>
             <div className={styles.telegramButton}>
-                <div className={`${styles['list-container']} ${chatSettings ? styles.active : ''}`}>
+                <div className={`${styles['list-container']} ${telegramButton ? styles.active : ''}`}>
                     <div
                         className={styles.settingsButton}
                         onClick={(event) => {
-                            setChatSettings(!chatSettings);
+                            settelegramButton(!telegramButton);
                             createRipple(event);
                         }}
                     >
