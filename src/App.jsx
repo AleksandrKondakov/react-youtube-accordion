@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styles from './App.module.scss';
 
 function App() {
-    const [chatSettings, setChatSettings] = useState(false);
+    const [chatSettings, setNavbarOpen] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseEnter = useCallback(() => setIsHovering(true), []);
@@ -10,11 +10,11 @@ function App() {
 
     useEffect(() => {
         if (!isHovering) {
-            setChatSettings(false);
+            setNavbarOpen(false);
         }
     }, [isHovering]);
 
-    const handleClickOutside = useCallback(() => setChatSettings(false), []);
+    const handleClickOutside = useCallback(() => setNavbarOpen(false), []);
     const handleClickInside = useCallback((e) => e.stopPropagation(), []);
 
     const createRipple = (event) => {
@@ -37,50 +37,65 @@ function App() {
 
     return (
         <div className={styles.content}>
-            <h1>CSS популярных приложений</h1>
-            <h2>Кнопка Telegram</h2>
-            <div className={styles.telegramButton}>
-                <div className={`${styles['list-container']} ${chatSettings ? styles.active : ''}`}>
-                    <div
-                        className={styles.settingsButton}
-                        onClick={(event) => {
-                            setChatSettings(!chatSettings);
-                            createRipple(event);
-                        }}
-                    >
-                        <svg className={styles.iconPencil} xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-pencil" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
-                                fill='#FFFFFF' />
-                        </svg>
-                        <svg className={styles.iconClose} xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-close" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-                                fill='#FFFFFF' />
-                        </svg>
-                    </div>
-                    <div className={styles.settingsModal} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClickOutside}>
-                        <div className={styles.other} onClick={handleClickInside}>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Создать канал</div>
-                            </div>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Создать группу</div>
-                            </div>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Начать личный чат</div>
+            <h1>Навигация Telegram</h1>
+            <div className={styles.telegramNavbar}>
+            <div className={`${styles.listContainer} ${chatSettings ? styles.active : ''}`}>
+            <div className={styles.settingsButton} onClick={(event) => { setNavbarOpen(!chatSettings); createRipple(event); }}>
+                        <span className={styles.line}></span>
+                        <span className={styles.line}></span>
+                    <span className={styles.line}></span>
+                </div>
+                <div className={styles.settingsModal} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClickOutside}>
+                    <div className={styles.other} onClick={handleClickInside}>
+                        <div className={styles.block}>
+                            <img src="https://vk.com/images/camera_200.png" alt="User" />
+                            <div className={styles.title}>Sasha</div>
+                        </div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Добавить аккаунт</div>
+                        </div>
+                        <div className={styles.separator}></div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Избранное</div>
+                        </div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Архив</div>
+                        </div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Мои истории</div>
+                        </div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Контакты</div>
+                        </div>
+                        <div className={styles.separator}></div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Кошелёк</div>
+                        </div>
+                        <div className={styles.separator}></div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Настройки</div>
+                        </div>
+                        <div className={styles.block}>
+                            <div className={styles.icon}>♺</div>
+                            <div className={styles.title}>Ещё</div>
+                            <div className={styles.arrow}>
+                                <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M8.96967 18.0303C8.67678 17.7374 8.67678 17.2626 8.96967 16.9697L13.4393 12.5L8.96967 8.03033C8.67678 7.73744 8.67678 7.26256 8.96967 6.96967C9.26256 6.67678 9.73744 6.67678 10.0303 6.96967L15.0303 11.9697C15.171 12.1103 15.25 12.3011 15.25 12.5C15.25 12.6989 15.171 12.8897 15.0303 13.0303L10.0303 18.0303C9.73744 18.3232 9.26256 18.3232 8.96967 18.0303Z" />
+                                </svg>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div className={styles.editor}>CSS Анимация by Kondakov</div>
+        </div>
         </div>
     );
 }

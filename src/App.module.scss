@@ -35,141 +35,168 @@ body {
         color: white;
     }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        color: white;
-    }
-}
+    .telegramNavbar {
+        display: flex;
+        z-index: 10;
 
-/* Кнопка для создания Telegram */
-.telegramButton {
-    display: flex;
-    z-index: 10;
+        .listContainer {
+            position: relative;
+            margin-bottom: 65vh;
 
-    .list-container {
-        position: relative;
-
-        &.active {
-            .settingsModal {
-                opacity: 1;
-                visibility: visible;
-                transform: scale(1);
-            }
-
-            .settingsButton {
-                .iconPencil {
-                    opacity: 0;
-                    transform: scale(0);
-                }
-
-                .iconClose {
+            &.active {
+                .settingsModal {
                     opacity: 1;
+                    visibility: visible;
                     transform: scale(1);
                 }
             }
-        }
-    }
 
-    .settingsModal {
-        display: flex;
-        padding: 80px;
-        position: absolute;
-        bottom: -20px;
-        right: -80px;
-        z-index: 3;
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.8);
-        transform-origin: bottom right;
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
-
-        .other {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: #212121;
-            border-radius: 10px;
-            padding: 5px;
-            z-index: 5;
-
-            .block {
+            .settingsButton {
                 display: flex;
+                flex-direction: column;
                 position: relative;
-                align-items: center;
-                padding: 4px 0;
+                height: 44px;
+                width: 44px;
+                border-radius: 50%;
+                z-index: 2;
                 cursor: pointer;
+                justify-content: center;
+                align-items: center;
                 overflow: hidden;
-                border-radius: 5px;
-                transition: transform 0.3s ease;
-
-                .icon {
-                    display: flex;
-                    margin-left: 10px;
-                    z-index: 2;
-                }
-
-                .title {
-                    font-weight: 700;
-                    font-size: 14px;
-                    color: #ffffff;
-                    margin-left: 15px;
-                    z-index: 2;
-                    white-space: nowrap;
-                    margin-right: 10px;
-                }
-
-                &:active {
-                    transform: scale(0.95);
-                }
 
                 &:hover {
-                    background: rgba(255, 255, 255, 0.1);
+                    background-color: rgba(255, 255, 255, 0.05);
+                }
+
+                .line {
+                    display: flex;
+                    width: 50%;
+                    height: 2.5px;
+                    background-color: rgba(255, 255, 255, 0.65);
+                    border-radius: 5px;
+                    transition-duration: 0.4s;
+                    margin: 3px 0;
+
+                    &:nth-child(2) {
+                        margin: 0;
+                    }
+                }
+            }
+
+            .settingsModal {
+                display: flex;
+                padding: 80px;
+                position: absolute;
+                top: -20px;
+                left: -80px;
+                z-index: 3;
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(0.8);
+                transform-origin: top left;
+                transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
+
+                .other {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    background: rgba(40, 40, 40, 0.9);
+                    border-radius: 10px;
+                    z-index: 5;
+                    box-shadow: 0 0 2px 7px rgba(0, 0, 0, 0.025);
+                    padding: 5px 0;
+
+                    .separator {
+                        display: flex;
+                        position: relative;
+                        align-items: center;
+                        height: 1px;
+                        width: 100%;
+                        background: rgba(17, 17, 17, 0.7);
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        margin: 5px 0;
+                    }
+
+                    .block {
+                        display: flex;
+                        position: relative;
+                        align-items: center;
+                        padding: 2.5px 0;
+                        cursor: pointer;
+                        overflow: hidden;
+                        border-radius: 5px;
+                        transition: transform 0.3s ease;
+                        margin: 0 5px;
+
+                        img {
+                            display: flex;
+                            margin-left: 4px;
+                            width: 28px;
+                            height: 28px;
+                            border-radius: 50%;
+                            border: #8474e1 2px solid;
+                        }
+
+                        .icon {
+                            display: flex;
+                            align-items: center;
+                            margin-left: 4px;
+                            justify-content: center;
+                            width: 28px;
+                            height: 28px;
+                        }
+
+                        .title {
+                            font-weight: 700;
+                            font-size: 14px;
+                            color: #ffffff;
+                            margin-left: 15px;
+                            white-space: nowrap;
+                            margin-right: 10px;
+                        }
+
+                        .arrow {
+                            display: flex;
+                            margin-left: auto;
+                            margin-right: 3px;
+
+                            svg {
+                                width: 25px;
+                                fill: rgba(255, 255, 255, 0.3);
+                            }
+                        }
+
+                        &:active {
+                            transform: scale(0.95);
+                        }
+
+                        &:hover {
+                            background: rgba(65, 65, 65, 0.35);
+                        }
+                    }
                 }
             }
         }
     }
 
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-        z-index: 3;
-    }
-
-    .settingsButton {
+    .editor {
         display: flex;
-        flex-direction: column;
-        position: relative;
-        background-color: #8474e1;
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        z-index: 2;
-        cursor: pointer;
         justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        svg {
-            position: absolute;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform-origin: center;
-            will-change: opacity, transform;
-        }
-
-        .iconPencil {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .iconClose {
-            opacity: 0;
-            transform: scale(0);
-        }
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        font-weight: 500;
+        font-size: 14px;
     }
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+    z-index: 3;
 }
