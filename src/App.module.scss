@@ -11,7 +11,7 @@ body {
 }
 
 .content {
-    max-width: 100px;
+    width: 100px;
 
     h2 {
         text-align: center;
@@ -124,6 +124,6 @@ body {
 @media (max-width: 666px) {
     .content {
         width: 90%;
-        max-width: none;
+        width: none;
     }
 }
