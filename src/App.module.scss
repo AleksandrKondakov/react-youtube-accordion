@@ -11,7 +11,7 @@ body {
 }
 
 .content {
-    max-width: 600px;
+    max-width: max(100vh, 600px);
     width: 100%;
 
     h2 {
