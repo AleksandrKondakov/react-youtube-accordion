@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './App.module.scss';
 
 const App = () => {
-    console.log('aaa');
     const [activeIndex, setActiveIndex] = useState(null);
     const contentRefs = useRef([]);
 
