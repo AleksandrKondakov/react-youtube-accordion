@@ -1,202 +1,123 @@
-@keyframes ripple-animation {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #151618;
-    font-family: "Arial", sans-serif;
-    width: 100vw;
-    height: 100vh;
-    color: white;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
-    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+    max-width: 600px;
+    width: 100%;
 
-    h1 {
+    h2 {
         text-align: center;
-        margin-bottom: 2rem;
-        font-size: 2.5rem;
-        color: white;
+        color: #202124;
+        margin-bottom: 20px;
+        font-size: 24px;
     }
 
-    .telegramNavbar {
+    .accordion {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordionItem {
+        border-bottom: 1px solid #ddd;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .accordionHeader {
         display: flex;
-        z-index: 10;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #202124;
+        cursor: pointer;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
 
-        .listContainer {
-            position: relative;
-            margin-bottom: 65vh;
+        &:hover {
+            background-color: #f1f3f4;
+        }
 
-            &.active {
-                .settingsModal {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: scale(1);
-                }
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #007BFF;
+
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: #007BFF;
             }
 
-            .settingsButton {
+            .iconBURGER {
                 display: flex;
                 flex-direction: column;
-                position: relative;
-                height: 44px;
-                width: 44px;
-                border-radius: 50%;
-                z-index: 2;
-                cursor: pointer;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-
-                &:hover {
-                    background-color: rgba(255, 255, 255, 0.05);
-                }
+                justify-content: space-between;
+                width: 16px;
+                height: 12px;
 
                 .line {
-                    display: flex;
-                    width: 50%;
-                    height: 2.5px;
-                    background-color: rgba(255, 255, 255, 0.65);
-                    border-radius: 5px;
-                    transition-duration: 0.4s;
-                    margin: 3px 0;
-
-                    &:nth-child(2) {
-                        margin: 0;
-                    }
-                }
-            }
-
-            .settingsModal {
-                display: flex;
-                padding: 80px;
-                position: absolute;
-                top: -20px;
-                left: -80px;
-                z-index: 3;
-                opacity: 0;
-                visibility: hidden;
-                transform: scale(0.8);
-                transform-origin: top left;
-                transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
-
-                .other {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    background: rgba(40, 40, 40, 0.9);
-                    border-radius: 10px;
-                    z-index: 5;
-                    box-shadow: 0 0 2px 7px rgba(0, 0, 0, 0.025);
-                    padding: 5px 0;
-
-                    .separator {
-                        display: flex;
-                        position: relative;
-                        align-items: center;
-                        height: 1px;
-                        width: 100%;
-                        background: rgba(17, 17, 17, 0.7);
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                        margin: 5px 0;
-                    }
-
-                    .block {
-                        display: flex;
-                        position: relative;
-                        align-items: center;
-                        padding: 2.5px 0;
-                        cursor: pointer;
-                        overflow: hidden;
-                        border-radius: 5px;
-                        transition: transform 0.3s ease;
-                        margin: 0 5px;
-
-                        img {
-                            display: flex;
-                            margin-left: 4px;
-                            width: 28px;
-                            height: 28px;
-                            border-radius: 50%;
-                            border: #8474e1 2px solid;
-                        }
-
-                        .icon {
-                            display: flex;
-                            align-items: center;
-                            margin-left: 4px;
-                            justify-content: center;
-                            width: 28px;
-                            height: 28px;
-                        }
-
-                        .title {
-                            font-weight: 700;
-                            font-size: 14px;
-                            color: #ffffff;
-                            margin-left: 15px;
-                            white-space: nowrap;
-                            margin-right: 10px;
-                        }
-
-                        .arrow {
-                            display: flex;
-                            margin-left: auto;
-                            margin-right: 3px;
-
-                            svg {
-                                width: 25px;
-                                fill: rgba(255, 255, 255, 0.3);
-                            }
-                        }
-
-                        &:active {
-                            transform: scale(0.95);
-                        }
-
-                        &:hover {
-                            background: rgba(65, 65, 65, 0.35);
-                        }
-                    }
+                    width: 100%;
+                    height: 2px;
+                    background-color: #007BFF;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
                 }
             }
         }
     }
 
-    .editor {
-        display: flex;
-        justify-content: center;
-        position: absolute;
-        bottom: 40px;
-        left: 0;
-        right: 0;
-        font-weight: 500;
-        font-size: 14px;
-    }
-}
+    .accordionItem.active {
+        .iconSVG {
+            transform: rotate(180deg);
+        }
 
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
-    pointer-events: none;
-    z-index: 3;
+        .iconPLUS {
+            transform: rotate(45deg);
+        }
+
+        .icon .iconBURGER {
+            .line:nth-child(1) {
+                transform: translateY(5px) rotate(45deg);
+            }
+
+            .line:nth-child(2) {
+                opacity: 0;
+            }
+
+            .line:nth-child(3) {
+                transform: translateY(-5px) rotate(-45deg);
+            }
+        }
+    }
+
+    .accordionContent {
+        padding: 0 15px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+
+        p {
+            margin: 15px 0;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+    }
 }

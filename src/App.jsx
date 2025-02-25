@@ -1,88 +1,82 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './App.module.scss';
 
-function App() {
-    const [telegramButton, settelegramButton] = useState(false);
-    const [isHovering, setIsHovering] = useState(false);
+const App = () => {
+    console.log('aaa');
+    const [activeIndex, setActiveIndex] = useState(null);
+    const contentRefs = useRef([]);
 
-    const handleMouseEnter = useCallback(() => setIsHovering(true), []);
-    const handleMouseLeave = useCallback(() => setIsHovering(false), []);
+    const handleClick = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
 
     useEffect(() => {
-        if (!isHovering) {
-            settelegramButton(false);
+        if (activeIndex !== null) {
+            const contentElement = contentRefs.current[activeIndex];
+            contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
         }
-    }, [isHovering]);
 
-    const handleClickOutside = useCallback(() => settelegramButton(false), []);
-    const handleClickInside = useCallback((e) => e.stopPropagation(), []);
-
-    const createRipple = (event) => {
-        const block = event.currentTarget;
-        const circle = document.createElement('span');
-        const rect = block.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-
-        circle.style.width = circle.style.height = `${size}px`;
-        circle.style.left = `${event.clientX - rect.left - size / 2}px`;
-        circle.style.top = `${event.clientY - rect.top - size / 2}px`;
-        circle.className = styles.ripple;
-
-        block.appendChild(circle);
-
-        circle.addEventListener('animationend', () => {
-            circle.remove();
+        contentRefs.current.forEach((ref, index) => {
+            if (index !== activeIndex && ref) {
+                ref.style.maxHeight = null;
+            }
         });
-    };
+    }, [activeIndex]);
+
+    const accordionData = [
+        {
+            question: 'Вопрос 1',
+            answer: 'Ответ на вопрос 1. Здесь может быть много текста, который будет скрыт и показан при нажатии на заголовок.',
+            icon: 'svg'
+        },
+        {
+            question: 'Вопрос 2',
+            answer: 'Ответ на вопрос 2. Еще больше текста, который можно скрыть или показать.',
+            icon: 'plus'
+        },
+        {
+            question: 'Вопрос 3',
+            answer: 'Ответ на вопрос 3. И еще один блок с текстом.',
+            icon: 'burger'
+        }
+    ];
 
     return (
         <div className={styles.content}>
-            <h1>CSS популярных приложений</h1>
-            <h2>Кнопка Telegram</h2>
-            <div className={styles.telegramButton}>
-                <div className={`${styles['list-container']} ${telegramButton ? styles.active : ''}`}>
-                    <div
-                        className={styles.settingsButton}
-                        onClick={(event) => {
-                            settelegramButton(!telegramButton);
-                            createRipple(event);
-                        }}
-                    >
-                        <svg className={styles.iconPencil} xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-pencil" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
-                                fill='#FFFFFF' />
-                        </svg>
-                        <svg className={styles.iconClose} xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-close" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-                                fill='#FFFFFF' />
-                        </svg>
-                    </div>
-                    <div className={styles.settingsModal} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClickOutside}>
-                        <div className={styles.other} onClick={handleClickInside}>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Создать канал</div>
-                            </div>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Создать группу</div>
-                            </div>
-                            <div className={styles.block}>
-                                <div className={styles.icon}>🔗</div>
-                                <div className={styles.title}>Начать личный чат</div>
-                            </div>
+            <h2>Аккордеон в стиле Google/YouTube</h2>
+            <div className={styles.accordion}>
+                {accordionData.map((item, index) => (
+                    <div key={index} className={`${styles.accordionItem} ${activeIndex === index ? styles.active : ''}`}>
+                        <div className={styles.accordionHeader} onClick={() => handleClick(index)}>
+                            <span>{item.question}</span>
+                            <span className={styles.icon}>
+                                {item.icon === 'svg' && (
+                                    <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path transform="rotate(90 12 12.5)" fillRule="evenodd" clipRule="evenodd"
+                                            d="M8.96967 18.0303C8.67678 17.7374 8.67678 17.2626 8.96967 16.9697L13.4393 12.5L8.96967 8.03033C8.67678 7.73744 8.67678 7.26256 8.96967 6.96967C9.26256 6.67678 9.73744 6.67678 10.0303 6.96967L15.0303 11.9697C15.171 12.1103 15.25 12.3011 15.25 12.5C15.25 12.6989 15.171 12.8897 15.0303 13.0303L10.0303 18.0303C9.73744 18.3232 9.26256 18.3232 8.96967 18.0303Z" />
+                                    </svg>
+                                )}
+                                {item.icon === 'plus' && '+'}
+                                {item.icon === 'burger' && (
+                                    <span className={styles.iconBURGER}>
+                                        <span className={styles.line}></span>
+                                        <span className={styles.line}></span>
+                                        <span className={styles.line}></span>
+                                    </span>
+                                )}
+                            </span>
+                        </div>
+                        <div
+                            ref={el => contentRefs.current[index] = el}
+                            className={styles.accordionContent}
+                        >
+                            <p>{item.answer}</p>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </div>
     );
-}
+};
 
 export default App;
