@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-youtube-accordion/static/css/main.76c9939e.css",
+    "main.css": "/react-youtube-accordion/static/css/main.ed416ff5.css",
     "main.js": "/react-youtube-accordion/static/js/main.5a1940c0.js",
     "index.html": "/react-youtube-accordion/index.html",
-    "main.76c9939e.css.map": "/react-youtube-accordion/static/css/main.76c9939e.css.map",
+    "main.ed416ff5.css.map": "/react-youtube-accordion/static/css/main.ed416ff5.css.map",
     "main.5a1940c0.js.map": "/react-youtube-accordion/static/js/main.5a1940c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.76c9939e.css",
+    "static/css/main.ed416ff5.css",
     "static/js/main.5a1940c0.js"
   ]
 }
